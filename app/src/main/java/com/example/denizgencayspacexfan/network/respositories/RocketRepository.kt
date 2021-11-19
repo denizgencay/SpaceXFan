@@ -19,9 +19,7 @@ class RocketRepository @Inject constructor(private val apiService: ApiService) {
             ) {
                 if (response.isSuccessful){
                     rocketDataList.postValue(response.body())
-                    println("hoo: ${response.code()}")
                 }
-                println("hoo: ${response.code()}")
             }
 
             override fun onFailure(call: Call<List<RocketModel>>, t: Throwable) {

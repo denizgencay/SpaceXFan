@@ -21,13 +21,11 @@ class UpcomingLaunchRepository  @Inject constructor(
             ) {
                 if (response.isSuccessful){
                     upcomingLaunchDataList.postValue(response.body())
-                    println("hoo: ${response.code()}")
                 }
-                println("hoo: ${response.code()}")
             }
 
             override fun onFailure(call: Call<List<UpcomingLaunchModel>>, t: Throwable) {
-                println("hoo: $t")
+                println(t)
             }
         })
 
