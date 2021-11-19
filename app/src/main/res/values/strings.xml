@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">DenizGencaySpaceXFan</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="explore">EXPLORE</string>
+    <string name="height">HEIGHT</string>
+    <string name="diameter">DIAMETER</string>
+    <string name="mass">MASS</string>
+    <string name="payload_to_leo">PAYLOAD TO LEO</string>
+    <string name="payload_to_gto">PAYLOAD TO GTO</string>
+    <string name="payload_to_mars">PAYLOAD TO MARS</string>
+</resources>
