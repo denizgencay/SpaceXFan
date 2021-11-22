@@ -2,6 +2,9 @@ package com.example.denizgencayspacexfan.di
 
 import com.example.denizgencayspacexfan.network.ApiService
 import com.example.denizgencayspacexfan.util.Utils.Companion.BASE_URL
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.ktx.Firebase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -13,7 +16,6 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
-
     @Singleton
     @Provides
     fun provideRetrofit(): Retrofit =
@@ -26,5 +28,15 @@ object AppModule {
     @Provides
     fun provideRocketService(retrofit: Retrofit): ApiService =
         retrofit.create(ApiService::class.java)
+
+    @Provides
+    @Singleton
+    fun provideFireBaseAuth(): FirebaseAuth {
+        return FirebaseAuth.getInstance()
+    }
+
+    @Provides
+    @Singleton
+    fun provideFirestore()= FirebaseFirestore.getInstance()
 
 }

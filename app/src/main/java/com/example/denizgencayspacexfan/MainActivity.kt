@@ -3,6 +3,7 @@ package com.example.denizgencayspacexfan
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
+import com.example.denizgencayspacexfan.ui.authentication.signin.SignInFragment
 import com.example.denizgencayspacexfan.ui.favorites.FavoritesFragment
 import com.example.denizgencayspacexfan.ui.rockets.RocketsFragment
 import com.example.denizgencayspacexfan.ui.upcoming.UpcomingFragment
