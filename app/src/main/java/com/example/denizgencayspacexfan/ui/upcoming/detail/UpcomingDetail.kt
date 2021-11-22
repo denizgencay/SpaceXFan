@@ -6,9 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.denizgencayspacexfan.R
-import com.example.denizgencayspacexfan.models.UpcomingLaunchModel
+import com.example.denizgencayspacexfan.data.models.UpcomingLaunchModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.upcoming_launch_card.*
 import javax.inject.Inject
 
 @AndroidEntryPoint

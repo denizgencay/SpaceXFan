@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.denizgencayspacexfan.R
-import com.example.denizgencayspacexfan.models.UpcomingLaunchModel
+import com.example.denizgencayspacexfan.data.models.UpcomingLaunchModel
 import kotlinx.android.synthetic.main.upcoming_launch_card.view.*
 
 class UpcomingRecyclerAdapter: RecyclerView.Adapter<UpcomingRecyclerAdapter.UpcomingViewHolder>(){

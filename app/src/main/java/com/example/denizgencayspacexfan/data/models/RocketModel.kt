@@ -1,4 +1,4 @@
-package com.example.denizgencayspacexfan.models
+package com.example.denizgencayspacexfan.data.models
 import com.google.gson.annotations.SerializedName
 
 data class RocketModel (

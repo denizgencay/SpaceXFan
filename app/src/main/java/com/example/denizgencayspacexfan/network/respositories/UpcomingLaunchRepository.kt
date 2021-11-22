@@ -1,7 +1,7 @@
 package com.example.denizgencayspacexfan.network.respositories
 
 import androidx.lifecycle.MutableLiveData
-import com.example.denizgencayspacexfan.models.UpcomingLaunchModel
+import com.example.denizgencayspacexfan.data.models.UpcomingLaunchModel
 import com.example.denizgencayspacexfan.network.ApiService
 import retrofit2.Call
 import retrofit2.Callback

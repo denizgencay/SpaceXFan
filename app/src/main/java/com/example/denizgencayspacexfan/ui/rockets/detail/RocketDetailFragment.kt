@@ -7,9 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.example.denizgencayspacexfan.R
-import com.example.denizgencayspacexfan.models.RocketModel
+import com.example.denizgencayspacexfan.data.models.RocketModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_rocket_detail.*
 import javax.inject.Inject
 
 @AndroidEntryPoint

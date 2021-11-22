@@ -2,7 +2,7 @@ package com.example.denizgencayspacexfan.ui.upcoming
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.denizgencayspacexfan.models.UpcomingLaunchModel
+import com.example.denizgencayspacexfan.data.models.UpcomingLaunchModel
 import com.example.denizgencayspacexfan.network.respositories.UpcomingLaunchRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject

@@ -3,16 +3,15 @@ package com.example.denizgencayspacexfan.ui.rockets
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.denizgencayspacexfan.R
-import com.example.denizgencayspacexfan.models.RocketModel
+import com.example.denizgencayspacexfan.data.models.RocketModel
 import kotlinx.android.synthetic.main.rocket_card.view.*
 
 class RocketsRecyclerAdapter : RecyclerView.Adapter<RocketsRecyclerAdapter.RocketsViewHolder>() {
 
     private var rocketListData: List<RocketModel>? = null
-    private lateinit var listener: OnCardListener
+    private var listener: OnCardListener? = null
 
     interface OnCardListener{
         fun onCardClicked(position: Int)
@@ -31,7 +30,7 @@ class RocketsRecyclerAdapter : RecyclerView.Adapter<RocketsRecyclerAdapter.Rocke
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RocketsViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.rocket_card,parent,false)
 
-        return RocketsViewHolder(itemView ,listener)
+        return RocketsViewHolder(itemView ,listener!!)
     }
 
     override fun onBindViewHolder(holder: RocketsViewHolder, position: Int) {

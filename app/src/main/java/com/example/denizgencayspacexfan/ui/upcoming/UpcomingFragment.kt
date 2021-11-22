@@ -5,16 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.denizgencayspacexfan.R
-import com.example.denizgencayspacexfan.models.UpcomingLaunchModel
-import com.example.denizgencayspacexfan.ui.rockets.RocketsRecyclerAdapter
-import com.example.denizgencayspacexfan.ui.rockets.RocketsViewModel
 import com.example.denizgencayspacexfan.ui.upcoming.detail.UpcomingDetail
 import dagger.hilt.android.AndroidEntryPoint
 

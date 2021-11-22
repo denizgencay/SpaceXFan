@@ -2,7 +2,7 @@ package com.example.denizgencayspacexfan.ui.rockets
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.denizgencayspacexfan.models.RocketModel
+import com.example.denizgencayspacexfan.data.models.RocketModel
 import com.example.denizgencayspacexfan.network.respositories.RocketRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -23,5 +23,6 @@ class RocketsViewModel @Inject constructor(
     fun loadRocketListOfData(){
         rocketRepository.getAllRocketsFromApi(rocketsDataList)
     }
+
 
 }
