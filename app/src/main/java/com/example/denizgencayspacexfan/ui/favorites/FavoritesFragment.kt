@@ -72,7 +72,7 @@ class FavoritesFragment : Fragment() {
                             if (it[position].isLiked) {
                                 it[position].isLiked = false
                                 viewModel.removeLike(it[position].id)
-                                likedRockets.remove(it[position])
+                                //likedRockets.remove(it[position])
                                 favoritesRecyclerViewAdapter.notifyDataSetChanged()
                             }
                         }
