@@ -14,7 +14,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
-    private val favoritesFragment = FavoritesFragment()
+    private val signInFragment = SignInFragment()
     private val rocketsFragment = RocketsFragment()
     private val upcomingFragment = UpcomingFragment()
 
@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
         bottomNavigation.setOnItemSelectedListener(NavigationBarView.OnItemSelectedListener {
             when(it.itemId){
                 R.id.nav_bar_rockets -> commitFragment(rocketsFragment)
-                R.id.nav_bar_favorites -> commitFragment(favoritesFragment)
+                R.id.nav_bar_favorites -> commitFragment(signInFragment)
                 R.id.nav_bar_upcoming -> commitFragment(upcomingFragment)
             }
             true
