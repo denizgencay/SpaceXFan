@@ -15,13 +15,14 @@ import com.example.denizgencayspacexfan.ui.authentication.signin.SignInFragment
 import com.example.denizgencayspacexfan.ui.authentication.signin.SignInViewModel
 import com.example.denizgencayspacexfan.ui.authentication.signup.SignUpFragment
 import com.example.denizgencayspacexfan.ui.rockets.RocketsRecyclerAdapter
+import com.example.denizgencayspacexfan.ui.rockets.RocketsViewModel
 import com.example.denizgencayspacexfan.ui.rockets.detail.RocketDetailFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class FavoritesFragment : Fragment() {
 
-    lateinit var favoritesRecyclerViewAdapter: FavoritesRecyclerAdapter
+    lateinit var favoritesRecyclerViewAdapter: RocketsRecyclerAdapter
     lateinit var favoritesRecyclerView: RecyclerView
 
     override fun onCreateView(
@@ -37,20 +38,29 @@ class FavoritesFragment : Fragment() {
         return view
     }
 
+    private fun initRecyclerView() {
+        favoritesRecyclerView.layoutManager = LinearLayoutManager(context)
+        favoritesRecyclerViewAdapter = RocketsRecyclerAdapter()
+        favoritesRecyclerView.adapter = favoritesRecyclerViewAdapter
+    }
+
     private fun initViewModel() {
-       val viewModel: FavoritesViewModel = ViewModelProvider(this).get(FavoritesViewModel::class.java)
-        viewModel.getRocketByIdLiveDataObserver().observe(viewLifecycleOwner,{
-            if(it != null){
+        val viewModel: RocketsViewModel = ViewModelProvider(this).get(RocketsViewModel::class.java)
+        viewModel.getRocketLiveDataObserver().observe(viewLifecycleOwner, {
+            if (it != null) {
                 viewModel.getLikeStatus().addOnSuccessListener { ls ->
                     val list: ArrayList<String> = ls.data?.get("rocketIds") as ArrayList<String>
+                    var likedRockets:  ArrayList<RocketModel> = arrayListOf()
                     for (rocket in it) {
                         if (list.contains(rocket.id)) {
                             rocket.isLiked = true
+                            likedRockets.add(rocket)
                         }
                     }
-                    favoritesRecyclerViewAdapter.setRocketListData(it)
+                    println(list.size)
+                    favoritesRecyclerViewAdapter.setRocketListData(likedRockets)
                     favoritesRecyclerViewAdapter.notifyDataSetChanged()
-                    favoritesRecyclerViewAdapter.setOnCardClickedListener(object :FavoritesRecyclerAdapter.OnCardListener{
+                    favoritesRecyclerViewAdapter.setOnCardClickedListener(object : RocketsRecyclerAdapter.OnCardListener {
                         override fun onCardClicked(position: Int) {
                             val currentFragment = RocketDetailFragment(it[position])
                             activity?.supportFragmentManager!!.beginTransaction()
@@ -62,30 +72,17 @@ class FavoritesFragment : Fragment() {
                             if (it[position].isLiked) {
                                 it[position].isLiked = false
                                 viewModel.removeLike(it[position].id)
-                            } else {
-                                it[position].isLiked = true
-                                viewModel.appendLike(it[position].id)
+                                likedRockets.remove(it[position])
+                                favoritesRecyclerViewAdapter.notifyDataSetChanged()
                             }
                         }
                     })
                 }
-
-            }else{
+            } else {
                 println("err")
             }
         })
-        val stringArray:ArrayList<String> = ArrayList()
-        stringArray.add("5e9d0d96eda699382d09d1ee")
-        stringArray.add("5e9d0d95eda69955f709d1eb")
-        stringArray.add("5e9d0d95eda69974db09d1ed")
-        viewModel.loadRocketByIdListOfData(stringArray)
-
-    }
-
-    private fun initRecyclerView() {
-        favoritesRecyclerView.layoutManager = LinearLayoutManager(context)
-        favoritesRecyclerViewAdapter = FavoritesRecyclerAdapter()
-        favoritesRecyclerView.adapter = favoritesRecyclerViewAdapter
+        viewModel.loadRocketListOfData()
     }
 
 }

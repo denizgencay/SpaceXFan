@@ -20,7 +20,6 @@ class RocketRepository @Inject constructor(private val apiService: ApiService) {
                     rocketDataList.postValue(response.body())
                 }
             }
-
             override fun onFailure(call: Call<List<RocketModel>>, t: Throwable) {
                 println(t)
             }
@@ -28,7 +27,6 @@ class RocketRepository @Inject constructor(private val apiService: ApiService) {
     }
 
     fun getRocketById(rocketData: MutableLiveData<List<RocketModel>>, rocketIds:ArrayList<String>){
-
         val listOfReturn: ArrayList<RocketModel> = arrayListOf()
         for (rocketId:String in rocketIds){
             val call: Call<RocketModel> = apiService.getRocketsById(rocketId)
@@ -42,10 +40,7 @@ class RocketRepository @Inject constructor(private val apiService: ApiService) {
                 override fun onFailure(call: Call<RocketModel>, t: Throwable) {
                     println(t)
                 }
-
             })
         }
-
     }
-
 }

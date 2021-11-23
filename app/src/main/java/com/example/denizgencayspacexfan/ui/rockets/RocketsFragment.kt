@@ -12,14 +12,19 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.denizgencayspacexfan.R
 import com.example.denizgencayspacexfan.data.models.UserCollectionModel
 import com.example.denizgencayspacexfan.ui.rockets.detail.RocketDetailFragment
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class RocketsFragment : Fragment() {
 
     lateinit var rocketsRecyclerViewAdapter: RocketsRecyclerAdapter
     lateinit var rocketsRecyclerView: RecyclerView
+    @Inject
+    lateinit var firebaseAuth: FirebaseAuth
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,47 +43,55 @@ class RocketsFragment : Fragment() {
         rocketsRecyclerView.layoutManager = LinearLayoutManager(context)
         rocketsRecyclerViewAdapter = RocketsRecyclerAdapter()
         rocketsRecyclerView.adapter = rocketsRecyclerViewAdapter
-
     }
-
     private fun initViewModel(){
         val viewModel:RocketsViewModel = ViewModelProvider(this).get(RocketsViewModel::class.java)
         viewModel.getRocketLiveDataObserver().observe(viewLifecycleOwner, Observer {
             if (it != null) {
-                viewModel.getLikeStatus().addOnSuccessListener { ls ->
-                    val list: ArrayList<String> = ls.data?.get("rocketIds") as ArrayList<String>
-                    for (rocket in it) {
-                        if (list.contains(rocket.id)) {
-                            rocket.isLiked = true
+                if (firebaseAuth.currentUser != null) {
+                    viewModel.getLikeStatus().addOnSuccessListener { ls ->
+                        val list: ArrayList<String> = ls.data?.get("rocketIds") as ArrayList<String>
+                        for (rocket in it) {
+                            if (list.contains(rocket.id)) {
+                                rocket.isLiked = true
+                            }
                         }
+                        rocketsRecyclerViewAdapter.setRocketListData(it)
+                        rocketsRecyclerViewAdapter.notifyDataSetChanged()
+                        rocketsRecyclerViewAdapter.setOnCardClickedListener(object : RocketsRecyclerAdapter.OnCardListener {
+                            override fun onCardClicked(position: Int) {
+                                val currentFragment = RocketDetailFragment(it[position])
+                                activity?.supportFragmentManager!!.beginTransaction()
+                                        .replace(R.id.fragment_container, currentFragment, "fragmentId")
+                                        .commit();
+                            }
+                            override fun onLikeClicked(position: Int) {
+                                if (it[position].isLiked) {
+                                    it[position].isLiked = false
+                                    viewModel.removeLike(it[position].id)
+                                } else {
+                                    it[position].isLiked = true
+                                    viewModel.appendLike(it[position].id)
+                                }
+                            }
+                        })
                     }
+                } else {
                     rocketsRecyclerViewAdapter.setRocketListData(it)
                     rocketsRecyclerViewAdapter.notifyDataSetChanged()
                     rocketsRecyclerViewAdapter.setOnCardClickedListener(object : RocketsRecyclerAdapter.OnCardListener {
                         override fun onCardClicked(position: Int) {
-                            val currentFragment = RocketDetailFragment(it[position])
-                            activity?.supportFragmentManager!!.beginTransaction()
-                                    .replace(R.id.fragment_container, currentFragment, "fragmentId")
-                                    .commit();
+                            println("asd")
                         }
-
                         override fun onLikeClicked(position: Int) {
-                            if (it[position].isLiked) {
-                                it[position].isLiked = false
-                                viewModel.removeLike(it[position].id)
-                            } else {
-                                it[position].isLiked = true
-                                viewModel.appendLike(it[position].id)
-                            }
+                            println("asd")
                         }
                     })
                 }
-
             } else {
                 println("err")
             }
         })
         viewModel.loadRocketListOfData()
     }
-
 }

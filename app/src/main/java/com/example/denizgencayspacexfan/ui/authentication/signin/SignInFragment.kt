@@ -44,7 +44,7 @@ class SignInFragment : Fragment() {
     private fun initViewModel() {
 
         val viewModel: SignInViewModel = ViewModelProvider(this).get(SignInViewModel::class.java)
-        viewModel.signInUser("denizgencay@gmail.com","123456").observe(viewLifecycleOwner,{
+        viewModel.signInUser("berkansozen@gmail.com","123456").observe(viewLifecycleOwner,{
 
         })
     }
