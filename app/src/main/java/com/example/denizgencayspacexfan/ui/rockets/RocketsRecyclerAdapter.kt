@@ -15,6 +15,7 @@ class RocketsRecyclerAdapter : RecyclerView.Adapter<RocketsRecyclerAdapter.Rocke
 
     interface OnCardListener{
         fun onCardClicked(position: Int)
+        fun onLikeClicked(position: Int)
     }
 
     fun setRocketListData(rocketListData: List<RocketModel>?){
@@ -44,15 +45,22 @@ class RocketsRecyclerAdapter : RecyclerView.Adapter<RocketsRecyclerAdapter.Rocke
 
     class RocketsViewHolder(itemView: View,listener: OnCardListener): RecyclerView.ViewHolder(itemView){
         private val rocketName = itemView.rocket_card_rocket_name
+        private val likeButton = itemView.rocket_card_favorite_button
 
         init {
             itemView.setOnClickListener {
                 listener.onCardClicked(adapterPosition)
             }
+
+            likeButton.setOnClickListener{
+                listener.onLikeClicked(adapterPosition)
+            }
+
         }
 
         fun bind(data: RocketModel){
             rocketName.text = data.name
+            println(data.isLiked)
         }
 
     }

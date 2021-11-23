@@ -5,16 +5,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.denizgencayspacexfan.R
+import com.example.denizgencayspacexfan.data.models.UserCollectionModel
 import com.example.denizgencayspacexfan.ui.rockets.detail.RocketDetailFragment
-import com.example.denizgencayspacexfan.ui.upcoming.detail.UpcomingDetail
+import com.google.firebase.firestore.DocumentSnapshot
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_rockets.*
 
 @AndroidEntryPoint
 class RocketsFragment : Fragment() {
@@ -45,19 +44,37 @@ class RocketsFragment : Fragment() {
     private fun initViewModel(){
         val viewModel:RocketsViewModel = ViewModelProvider(this).get(RocketsViewModel::class.java)
         viewModel.getRocketLiveDataObserver().observe(viewLifecycleOwner, Observer {
-            if(it != null){
-                rocketsRecyclerViewAdapter.setRocketListData(it)
-                rocketsRecyclerViewAdapter.notifyDataSetChanged()
-                rocketsRecyclerViewAdapter.setOnCardClickedListener(object :RocketsRecyclerAdapter.OnCardListener{
-                    override fun onCardClicked(position: Int) {
-
-                        val currentFragment = RocketDetailFragment(it[position])
-                        activity?.supportFragmentManager!!.beginTransaction()
-                                .replace(R.id.fragment_container, currentFragment, "fragmentId")
-                                .commit();
+            if (it != null) {
+                viewModel.getLikeStatus().addOnSuccessListener { ls ->
+                    val list: ArrayList<String> = ls.data?.get("rocketIds") as ArrayList<String>
+                    for (rocket in it) {
+                        if (list.contains(rocket.id)) {
+                            rocket.isLiked = true
+                        }
                     }
-                })
-            }else{
+                    rocketsRecyclerViewAdapter.setRocketListData(it)
+                    rocketsRecyclerViewAdapter.notifyDataSetChanged()
+                    rocketsRecyclerViewAdapter.setOnCardClickedListener(object : RocketsRecyclerAdapter.OnCardListener {
+                        override fun onCardClicked(position: Int) {
+                            val currentFragment = RocketDetailFragment(it[position])
+                            activity?.supportFragmentManager!!.beginTransaction()
+                                    .replace(R.id.fragment_container, currentFragment, "fragmentId")
+                                    .commit();
+                        }
+
+                        override fun onLikeClicked(position: Int) {
+                            if (it[position].isLiked) {
+                                it[position].isLiked = false
+                                viewModel.removeLike(it[position].id)
+                            } else {
+                                it[position].isLiked = true
+                                viewModel.appendLike(it[position].id)
+                            }
+                        }
+                    })
+                }
+
+            } else {
                 println("err")
             }
         })

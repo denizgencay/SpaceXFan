@@ -22,6 +22,7 @@ class RocketDetailFragment @Inject constructor(private val rocketModel: RocketMo
     }
 
     private fun setDataToView(view:View) {
+
         val rocketDescription: TextView = view.findViewById(R.id.rocket_detail_fragment_description_text)
         val rocketHeight: TextView = view.findViewById(R.id.rocket_detail_fragment_height_text)
         val rocketDiameter: TextView = view.findViewById(R.id.rocket_detail_fragment_diameter_text)
