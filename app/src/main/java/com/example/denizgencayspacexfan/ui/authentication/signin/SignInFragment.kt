@@ -9,6 +9,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import com.example.denizgencayspacexfan.R
 import com.example.denizgencayspacexfan.data.models.UserModel
+import com.example.denizgencayspacexfan.ui.authentication.signup.SignUpFragment
 import com.example.denizgencayspacexfan.ui.authentication.signup.SignUpViewModel
 import com.example.denizgencayspacexfan.ui.favorites.FavoritesFragment
 import com.google.firebase.auth.FirebaseAuth
@@ -27,14 +28,14 @@ class SignInFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-//        if(firebaseAuth.currentUser != null){
-//            val currentFragment = FavoritesFragment()
-//            activity?.supportFragmentManager!!.beginTransaction()
-//                .replace(R.id.fragment_container, currentFragment, "fragmentId")
-//                .commit();
-//        }else{
-//            initViewModel()
-//        }
+        if(firebaseAuth.currentUser != null){
+            val currentFragment = FavoritesFragment()
+            activity?.supportFragmentManager!!.beginTransaction()
+                .replace(R.id.fragment_container, currentFragment, "fragmentId")
+                .commit();
+        }else{
+            initViewModel()
+        }
 
 
         return inflater.inflate(R.layout.fragment_sign_in, container, false)
