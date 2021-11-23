@@ -41,16 +41,35 @@ class FavoritesFragment : Fragment() {
        val viewModel: FavoritesViewModel = ViewModelProvider(this).get(FavoritesViewModel::class.java)
         viewModel.getRocketByIdLiveDataObserver().observe(viewLifecycleOwner,{
             if(it != null){
-                favoritesRecyclerViewAdapter.setRocketListData(it)
-                favoritesRecyclerViewAdapter.notifyDataSetChanged()
-                favoritesRecyclerViewAdapter.setOnCardClickedListener(object :FavoritesRecyclerAdapter.OnCardListener{
-                    override fun onCardClicked(position: Int) {
-                        val currentFragment = RocketDetailFragment(it[position])
-                        activity?.supportFragmentManager!!.beginTransaction()
-                                .replace(R.id.fragment_container, currentFragment, "fragmentId")
-                                .commit();
+                viewModel.getLikeStatus().addOnSuccessListener { ls ->
+                    val list: ArrayList<String> = ls.data?.get("rocketIds") as ArrayList<String>
+                    for (rocket in it) {
+                        if (list.contains(rocket.id)) {
+                            rocket.isLiked = true
+                        }
                     }
-                })
+                    favoritesRecyclerViewAdapter.setRocketListData(it)
+                    favoritesRecyclerViewAdapter.notifyDataSetChanged()
+                    favoritesRecyclerViewAdapter.setOnCardClickedListener(object :FavoritesRecyclerAdapter.OnCardListener{
+                        override fun onCardClicked(position: Int) {
+                            val currentFragment = RocketDetailFragment(it[position])
+                            activity?.supportFragmentManager!!.beginTransaction()
+                                    .replace(R.id.fragment_container, currentFragment, "fragmentId")
+                                    .commit();
+                        }
+
+                        override fun onLikeClicked(position: Int) {
+                            if (it[position].isLiked) {
+                                it[position].isLiked = false
+                                viewModel.removeLike(it[position].id)
+                            } else {
+                                it[position].isLiked = true
+                                viewModel.appendLike(it[position].id)
+                            }
+                        }
+                    })
+                }
+
             }else{
                 println("err")
             }

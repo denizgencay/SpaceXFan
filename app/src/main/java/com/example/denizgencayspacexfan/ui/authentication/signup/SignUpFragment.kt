@@ -7,9 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.example.denizgencayspacexfan.R
-import com.example.denizgencayspacexfan.ui.rockets.RocketsViewModel
+import com.example.denizgencayspacexfan.data.models.UserCollectionModel
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.*
 
 @AndroidEntryPoint
 class SignUpFragment : Fragment() {
@@ -27,10 +26,11 @@ class SignUpFragment : Fragment() {
 
     private fun initViewModel() {
 
-        val viewModel:SignUpViewModel = ViewModelProvider(this).get(SignUpViewModel::class.java)
-        viewModel.signUpUser("denizgencay@gmail.com","123456").observe(viewLifecycleOwner,{
+        val viewModel: SignUpViewModel = ViewModelProvider(this).get(SignUpViewModel::class.java)
+        viewModel.signUpUser("berkansozen@gmail.com","123456").observe(viewLifecycleOwner,{
             if(it != null){
-                viewModel.saveUser("denizgencay@gmail.com")
+                val userCollection: UserCollectionModel = UserCollectionModel(arrayListOf())
+                viewModel.saveCollection(userCollection)
             }
         })
     }

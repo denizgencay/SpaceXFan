@@ -15,6 +15,7 @@ class FavoritesRecyclerAdapter : RecyclerView.Adapter<FavoritesRecyclerAdapter.F
 
     interface OnCardListener{
         fun onCardClicked(position: Int)
+        fun onLikeClicked(position: Int)
     }
 
     fun setRocketListData(favoriteRocketsListData: List<RocketModel>?){
@@ -44,10 +45,15 @@ class FavoritesRecyclerAdapter : RecyclerView.Adapter<FavoritesRecyclerAdapter.F
 
     class FavoritesViewHolder(itemView: View, listener: OnCardListener): RecyclerView.ViewHolder(itemView){
         private val rocketName = itemView.rocket_card_rocket_name
+        private val likeButton = itemView.rocket_card_favorite_button
 
         init {
             itemView.setOnClickListener {
                 listener.onCardClicked(adapterPosition)
+            }
+
+            likeButton.setOnClickListener{
+                listener.onLikeClicked(adapterPosition)
             }
         }
 

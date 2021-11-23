@@ -19,7 +19,12 @@ data class RocketModel (
     @SerializedName("company") var company : String,
     @SerializedName("wikipedia") var wikipedia : String,
     @SerializedName("description") var description : String,
-    @SerializedName("id") var id : String
+    @SerializedName("id") var id : String,
+    var isLiked: Boolean = false
+)
+
+data class RocketId(
+    var rocketId: String
 )
 
 data class Height (
