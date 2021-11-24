@@ -6,16 +6,24 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="center"
+        android:src="@mipmap/space_x_android_bg"
+        />
+
     <FrameLayout
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_above="@id/bottom_navigation_bar"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/transparent_background"
         app:menu="@menu/menu"
         android:layout_alignParentBottom="true">
 

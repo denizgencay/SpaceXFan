@@ -8,4 +8,8 @@
     <string name="payload_to_leo">PAYLOAD TO LEO</string>
     <string name="payload_to_gto">PAYLOAD TO GTO</string>
     <string name="payload_to_mars">PAYLOAD TO MARS</string>
+    <string name="sign_in_text">Login</string>
+    <string name="sign_up_text">SIGN UP</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
 </resources>

@@ -71,9 +71,9 @@ class FavoritesFragment : Fragment() {
                         override fun onLikeClicked(position: Int) {
                             if (it[position].isLiked) {
                                 it[position].isLiked = false
+                                favoritesRecyclerViewAdapter.notifyItemRemoved(position)
+                                likedRockets.remove(it[position])
                                 viewModel.removeLike(it[position].id)
-                                //likedRockets.remove(it[position])
-                                favoritesRecyclerViewAdapter.notifyDataSetChanged()
                             }
                         }
                     })

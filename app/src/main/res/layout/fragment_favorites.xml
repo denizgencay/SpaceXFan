@@ -6,7 +6,17 @@
     android:orientation="vertical"
     tools:context=".ui.favorites.FavoritesFragment">
 
+    <ImageView
+        android:id="@+id/fragment_log_out_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="25dp"
+        android:layout_marginTop="25dp"
+        android:layout_alignParentEnd="true"
+        android:src="@drawable/ic_baseline_exit_to_app_24"/>
+
     <androidx.recyclerview.widget.RecyclerView
+        android:layout_below="@id/fragment_log_out_button"
         android:id="@+id/favorites_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
