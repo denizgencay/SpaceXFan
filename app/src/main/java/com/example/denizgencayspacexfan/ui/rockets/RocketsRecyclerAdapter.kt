@@ -3,6 +3,8 @@ package com.example.denizgencayspacexfan.ui.rockets
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isInvisible
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.example.denizgencayspacexfan.R
 import com.example.denizgencayspacexfan.data.models.RocketModel
@@ -23,14 +25,11 @@ class RocketsRecyclerAdapter : RecyclerView.Adapter<RocketsRecyclerAdapter.Rocke
     }
 
     fun setOnCardClickedListener(listener: OnCardListener){
-
         this.listener = listener
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RocketsViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.rocket_card,parent,false)
-
         return RocketsViewHolder(itemView ,listener!!)
     }
 
@@ -60,6 +59,7 @@ class RocketsRecyclerAdapter : RecyclerView.Adapter<RocketsRecyclerAdapter.Rocke
 
         fun bind(data: RocketModel){
             rocketName.text = data.name
+            likeButton.isVisible = !data.isLiked
             println(data.isLiked)
         }
 

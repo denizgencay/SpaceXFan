@@ -67,10 +67,12 @@ class RocketsFragment : Fragment() {
                             }
                             override fun onLikeClicked(position: Int) {
                                 if (it[position].isLiked) {
-                                    it[position].isLiked = false
+                                    it[position].setLikeStatus(false)
+                                    rocketsRecyclerViewAdapter.notifyItemChanged(position)
                                     viewModel.removeLike(it[position].id)
                                 } else {
-                                    it[position].isLiked = true
+                                    it[position].setLikeStatus(true)
+                                    rocketsRecyclerViewAdapter.notifyItemChanged(position)
                                     viewModel.appendLike(it[position].id)
                                 }
                             }
