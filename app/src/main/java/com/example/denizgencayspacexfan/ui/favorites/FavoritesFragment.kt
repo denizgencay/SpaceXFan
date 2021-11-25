@@ -11,7 +11,6 @@ import android.widget.ImageView
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.request.transition.Transition
 import com.example.denizgencayspacexfan.R
 import com.example.denizgencayspacexfan.data.models.RocketModel
 import com.example.denizgencayspacexfan.ui.authentication.signin.SignInFragment

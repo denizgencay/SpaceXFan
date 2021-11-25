@@ -9,6 +9,7 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.example.denizgencayspacexfan.R
 import com.example.denizgencayspacexfan.data.models.RocketModel
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.rocket_card.view.*
 
 class RocketsRecyclerAdapter : RecyclerView.Adapter<RocketsRecyclerAdapter.RocketsViewHolder>() {
@@ -48,6 +49,7 @@ class RocketsRecyclerAdapter : RecyclerView.Adapter<RocketsRecyclerAdapter.Rocke
         private val rocketName = itemView.rocket_card_rocket_name
         private val likeButton: ImageView = itemView.rocket_card_like_button
         private val dislikeButton: ImageView = itemView.rocket_card_dislike_button
+        private val rocketCardImage: ImageView = itemView.rocket_card_rocket_image
 
         init {
             itemView.setOnClickListener {
@@ -65,12 +67,17 @@ class RocketsRecyclerAdapter : RecyclerView.Adapter<RocketsRecyclerAdapter.Rocke
 
         fun bind(data: RocketModel){
             rocketName.text = data.name
+            if (data.flickrImages.isNotEmpty()){
+                Picasso.get()
+                    .load(data.flickrImages[0])
+                    .resize(350,350)
+                    .centerCrop()
+                    .into(rocketCardImage)
+            }
             likeButton.isVisible = !data.isLiked
             dislikeButton.isVisible = data.isLiked
             println(data.isLiked)
         }
-
     }
-
 
 }

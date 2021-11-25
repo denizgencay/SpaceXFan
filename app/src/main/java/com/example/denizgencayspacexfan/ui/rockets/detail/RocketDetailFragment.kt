@@ -15,7 +15,9 @@ import com.example.denizgencayspacexfan.ui.authentication.signin.SignInFragment
 import com.example.denizgencayspacexfan.ui.favorites.FavoritesFragment
 import com.example.denizgencayspacexfan.ui.rockets.RocketsFragment
 import com.example.denizgencayspacexfan.ui.rockets.RocketsViewModel
+import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
+import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.fragment_rocket_detail.*
 import javax.inject.Inject
 
@@ -32,6 +34,7 @@ class RocketDetailFragment @Inject constructor(private val rocketModel: RocketMo
 //        val rocketToLeo: TextView = view.findViewById(R.id.rocket_detail_fragment_payload_to_leo_text)
 //        val rocketToGto: TextView = view.findViewById(R.id.rocket_detail_fragment_payload_to_gto_text)
 //        val rocketToMars: TextView = view.findViewById(R.id.rocket_detail_fragment_payload_to_mars_text)
+        val imageView: CircleImageView = view.findViewById(R.id.rocket_detail_fragment_image)
         val backButton: ImageView = view.findViewById(R.id.fragment_detail_back_button)
         val likeButton: ImageView = view.findViewById(R.id.fragment_detail_like_button)
         val dislikeButton: ImageView = view.findViewById(R.id.fragment_detail_dislike_button)
@@ -40,6 +43,10 @@ class RocketDetailFragment @Inject constructor(private val rocketModel: RocketMo
         rocketHeight.text = "${rocketModel.height.meters}m/${rocketModel.height.feet}ft"
         rocketDiameter.text = "${rocketModel.diameter.meters}m/${rocketModel.diameter.feet}ft"
         rocketMass.text = "${rocketModel.mass.kg}kg/${rocketModel.mass.lb}lb"
+
+        if(rocketModel.flickrImages.isNotEmpty()){
+            Picasso.get().load(rocketModel.flickrImages[0]).into(imageView)
+        }
 
         if (rocketModel.isLiked){
             likeButton.isVisible = false

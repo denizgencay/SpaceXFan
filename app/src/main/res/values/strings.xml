@@ -12,4 +12,7 @@
     <string name="sign_up_text">SIGN UP</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
+    <string name="name">Name</string>
+    <string name="date">DATE</string>
+    <string name="flight_number">FLIGHT NUMBER</string>
 </resources>

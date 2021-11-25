@@ -50,7 +50,7 @@
 
         </RelativeLayout>
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/rocket_card_rocket_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
