@@ -42,6 +42,7 @@ class RocketDetailFragment @Inject constructor(private val rocketModel: RocketMo
         val dislikeButton: ImageView = view.findViewById(R.id.fragment_detail_dislike_button)
         val viewModel: RocketsViewModel = ViewModelProvider(this).get(RocketsViewModel::class.java)
         val imageRecyclerView: RecyclerView = view.findViewById(R.id.image_recycler_view)
+        imageRecyclerView.isNestedScrollingEnabled = false
         val imageAdapter = ImageRecyclerAdapter()
         imageRecyclerView.layoutManager = GridLayoutManager(context,2)
         imageRecyclerView.adapter = imageAdapter

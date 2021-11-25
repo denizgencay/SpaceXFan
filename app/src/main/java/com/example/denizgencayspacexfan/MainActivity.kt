@@ -2,9 +2,9 @@ package com.example.denizgencayspacexfan
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.WindowManager
 import androidx.fragment.app.Fragment
 import com.example.denizgencayspacexfan.ui.authentication.signin.SignInFragment
-import com.example.denizgencayspacexfan.ui.favorites.FavoritesFragment
 import com.example.denizgencayspacexfan.ui.rockets.RocketsFragment
 import com.example.denizgencayspacexfan.ui.upcoming.UpcomingFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -20,8 +20,10 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN)
         setContentView(R.layout.activity_main)
         commitFragment(rocketsFragment)
+
         val bottomNavigation = findViewById<BottomNavigationView>(R.id.bottom_navigation_bar)
         bottomNavigation.setOnItemSelectedListener(NavigationBarView.OnItemSelectedListener {
             when(it.itemId){
@@ -37,5 +39,10 @@ class MainActivity : AppCompatActivity() {
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.fragment_container,fragment)
         transaction.commit()
+    }
+
+
+    override fun onBackPressed() {
+        moveTaskToBack(true);
     }
 }

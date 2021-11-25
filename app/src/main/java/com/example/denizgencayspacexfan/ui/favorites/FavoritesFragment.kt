@@ -63,6 +63,7 @@ class FavoritesFragment : Fragment() {
         return view
     }
 
+
     private fun initRecyclerView() {
         // Initializing rockets recycler view for displaying the data to user
         favoritesRecyclerView.layoutManager = LinearLayoutManager(context)
