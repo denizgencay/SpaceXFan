@@ -83,7 +83,6 @@ class RocketsFragment : Fragment() {
                                     it[position].isLiked = true
                                     rocketsRecyclerViewAdapter.notifyItemChanged(position)
                                     viewModel.appendLike(it[position].id)
-                                    println("hello")
                                 }
                             }
 

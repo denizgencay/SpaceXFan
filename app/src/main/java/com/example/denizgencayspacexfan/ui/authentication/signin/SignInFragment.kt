@@ -96,7 +96,7 @@ class SignInFragment : Fragment() {
                     }
                 }
                 Status.ERROR ->{
-                    println("no")
+                    println("Error")
                 }
             }
 
