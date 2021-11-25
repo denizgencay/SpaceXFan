@@ -60,7 +60,7 @@ class RocketsFragment : Fragment() {
                         rocketsRecyclerViewAdapter.notifyDataSetChanged()
                         rocketsRecyclerViewAdapter.setOnCardClickedListener(object : RocketsRecyclerAdapter.OnCardListener {
                             override fun onCardClicked(position: Int) {
-                                val currentFragment = RocketDetailFragment(it[position])
+                                val currentFragment = RocketDetailFragment(it[position],false)
                                 activity?.supportFragmentManager!!.beginTransaction()
                                         .replace(R.id.fragment_container, currentFragment, "fragmentId")
                                         .commit();

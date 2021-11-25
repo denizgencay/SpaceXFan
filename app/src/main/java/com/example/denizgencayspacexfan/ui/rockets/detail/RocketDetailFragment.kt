@@ -8,16 +8,19 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.view.isVisible
+import androidx.lifecycle.ViewModelProvider
 import com.example.denizgencayspacexfan.R
 import com.example.denizgencayspacexfan.data.models.RocketModel
 import com.example.denizgencayspacexfan.ui.authentication.signin.SignInFragment
+import com.example.denizgencayspacexfan.ui.favorites.FavoritesFragment
 import com.example.denizgencayspacexfan.ui.rockets.RocketsFragment
+import com.example.denizgencayspacexfan.ui.rockets.RocketsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_rocket_detail.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class RocketDetailFragment @Inject constructor(private val rocketModel: RocketModel) : Fragment() {
+class RocketDetailFragment @Inject constructor(private val rocketModel: RocketModel, private val isComingFromFavorites:Boolean) : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -46,14 +49,40 @@ class RocketDetailFragment @Inject constructor(private val rocketModel: RocketMo
             likeButton.isVisible = true
         }
 
+        val viewModel: RocketsViewModel = ViewModelProvider(this).get(RocketsViewModel::class.java)
+
+        likeButton.setOnClickListener {
+            if (!rocketModel.isLiked){
+                rocketModel.setLikeStatus(true)
+                likeButton.isVisible = false
+                dislikeButton.isVisible = true
+                viewModel.appendLike(rocketModel.id)
+            }
+        }
+
+        dislikeButton.setOnClickListener {
+            if (rocketModel.isLiked){
+                rocketModel.setLikeStatus(false)
+                dislikeButton.isVisible = false
+                likeButton.isVisible = true
+                viewModel.removeLike(rocketModel.id)
+            }
+        }
+
         backButton.setOnClickListener {
-            val currentFragment = RocketsFragment()
-            activity?.supportFragmentManager!!.beginTransaction()
-                    .replace(R.id.fragment_container, currentFragment, "fragmentId")
-                    .commit()
+            if (isComingFromFavorites){
+                val currentFragment = FavoritesFragment()
+                activity?.supportFragmentManager!!.beginTransaction()
+                        .replace(R.id.fragment_container, currentFragment, "fragmentId")
+                        .commit()
+            }else{
+                val currentFragment = RocketsFragment()
+                activity?.supportFragmentManager!!.beginTransaction()
+                        .replace(R.id.fragment_container, currentFragment, "fragmentId")
+                        .commit()
+            }
         }
         return view
     }
-
 
 }

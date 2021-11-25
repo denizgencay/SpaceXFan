@@ -89,14 +89,16 @@ class FavoritesFragment : Fragment() {
                     favoritesRecyclerViewAdapter.notifyDataSetChanged()
                     favoritesRecyclerViewAdapter.setOnCardClickedListener(object : RocketsRecyclerAdapter.OnCardListener {
                         override fun onCardClicked(position: Int) {
-                            val currentFragment = RocketDetailFragment(it[position])
+                            val currentFragment = RocketDetailFragment(it[position],true)
                             activity?.supportFragmentManager!!.beginTransaction()
                                     .replace(R.id.fragment_container, currentFragment, "fragmentId")
                                     .commit();
                         }
 
                         override fun onLikeClicked(position: Int) {
-                            //
+                            //Like button cannot clicked here because it's always invisible on this fragment.
+                            //Calling this method is a must because this view uses the rockets adapter
+                            //And it has a interface for like rockets
                         }
 
                         override fun onDislikeClicked(position: Int) {
