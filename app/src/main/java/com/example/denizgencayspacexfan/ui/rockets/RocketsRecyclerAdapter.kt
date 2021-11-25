@@ -68,7 +68,8 @@ class RocketsRecyclerAdapter : RecyclerView.Adapter<RocketsRecyclerAdapter.Rocke
         fun bind(data: RocketModel){
             rocketName.text = data.name
             if (data.flickrImages.isNotEmpty()){
-                Picasso.get()
+                Picasso
+                    .get()
                     .load(data.flickrImages[0])
                     .resize(350,350)
                     .centerCrop()
@@ -76,7 +77,6 @@ class RocketsRecyclerAdapter : RecyclerView.Adapter<RocketsRecyclerAdapter.Rocke
             }
             likeButton.isVisible = !data.isLiked
             dislikeButton.isVisible = data.isLiked
-            println(data.isLiked)
         }
     }
 

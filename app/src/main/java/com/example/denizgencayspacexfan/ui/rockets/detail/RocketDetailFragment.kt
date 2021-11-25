@@ -9,6 +9,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.denizgencayspacexfan.R
 import com.example.denizgencayspacexfan.data.models.RocketModel
 import com.example.denizgencayspacexfan.ui.authentication.signin.SignInFragment
@@ -38,11 +40,22 @@ class RocketDetailFragment @Inject constructor(private val rocketModel: RocketMo
         val backButton: ImageView = view.findViewById(R.id.fragment_detail_back_button)
         val likeButton: ImageView = view.findViewById(R.id.fragment_detail_like_button)
         val dislikeButton: ImageView = view.findViewById(R.id.fragment_detail_dislike_button)
+        val viewModel: RocketsViewModel = ViewModelProvider(this).get(RocketsViewModel::class.java)
+        val imageRecyclerView: RecyclerView = view.findViewById(R.id.image_recycler_view)
+        val imageAdapter = ImageRecyclerAdapter()
+        imageRecyclerView.layoutManager = GridLayoutManager(context,2)
+        imageRecyclerView.adapter = imageAdapter
 
-        rocketDescription.text = rocketModel.description
-        rocketHeight.text = "${rocketModel.height.meters}m/${rocketModel.height.feet}ft"
-        rocketDiameter.text = "${rocketModel.diameter.meters}m/${rocketModel.diameter.feet}ft"
-        rocketMass.text = "${rocketModel.mass.kg}kg/${rocketModel.mass.lb}lb"
+        if (rocketModel.flickrImages != null){
+            imageAdapter.setImageListData(rocketModel.flickrImages)
+            imageAdapter.notifyDataSetChanged()
+        }
+
+        if(rocketModel.description != null) rocketDescription.text = rocketModel.description
+        if(rocketModel.height != null) rocketHeight.text = "${rocketModel.height.meters}m/${rocketModel.height.feet}ft"
+        if(rocketModel.diameter != null) rocketDiameter.text = "${rocketModel.diameter.meters}m/${rocketModel.diameter.feet}ft"
+        if(rocketModel.mass != null) rocketMass.text = "${rocketModel.mass.kg}kg/${rocketModel.mass.lb}lb"
+
 
         if(rocketModel.flickrImages.isNotEmpty()){
             Picasso.get().load(rocketModel.flickrImages[0]).into(imageView)
@@ -56,7 +69,7 @@ class RocketDetailFragment @Inject constructor(private val rocketModel: RocketMo
             likeButton.isVisible = true
         }
 
-        val viewModel: RocketsViewModel = ViewModelProvider(this).get(RocketsViewModel::class.java)
+
 
         likeButton.setOnClickListener {
             if (!rocketModel.isLiked){
