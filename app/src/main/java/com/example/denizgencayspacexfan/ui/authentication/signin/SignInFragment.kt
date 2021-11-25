@@ -14,6 +14,7 @@ import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import com.example.denizgencayspacexfan.R
+import com.example.denizgencayspacexfan.data.Status
 import com.example.denizgencayspacexfan.data.models.UserModel
 import com.example.denizgencayspacexfan.ui.authentication.signup.SignUpFragment
 import com.example.denizgencayspacexfan.ui.authentication.signup.SignUpViewModel
@@ -43,7 +44,7 @@ class SignInFragment : Fragment() {
         val passwordText: EditText = view.findViewById(R.id.fragment_sign_in_password_text)
         val loginButton: Button = view.findViewById(R.id.sign_in_button)
         val signUpButton: TextView = view.findViewById(R.id.sign_in_fragment_sign_up_button)
-        if(firebaseAuth.currentUser != null){
+        if(firebaseAuth.currentUser == null){
             val currentFragment = FavoritesFragment()
             activity?.supportFragmentManager!!.beginTransaction()
                 .replace(R.id.fragment_container, currentFragment, "fragmentId")
@@ -79,9 +80,21 @@ class SignInFragment : Fragment() {
 
         val viewModel: SignInViewModel = ViewModelProvider(this).get(SignInViewModel::class.java)
         viewModel.signInUser(email,password).observe(viewLifecycleOwner,{
-            println(it.email)
+            when(it.status){
+
+                Status.LOADING -> {
+                    println("asd")
+                }
+
+                Status.SUCCESS ->{
+                    println("succ")
+                }
+                Status.ERROR ->{
+                    println("no")
+                }
+            }
+
         })
-        println("here")
     }
 
 }
