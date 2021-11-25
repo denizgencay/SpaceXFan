@@ -3,17 +3,17 @@
 
     <item
         android:id="@+id/nav_bar_rockets"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/ic_baseline_whatshot_24"
         android:title="Rockets"/>
 
     <item
         android:id="@+id/nav_bar_favorites"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/ic_baseline_star_24"
         android:title="Favorites"/>
 
     <item
         android:id="@+id/nav_bar_upcoming"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/ic_baseline_edit_calendar_24"
         android:title="Upcoming"/>
 
 
