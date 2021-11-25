@@ -1,6 +1,8 @@
 package com.example.denizgencayspacexfan.ui.authentication.signup
 
 import android.os.Bundle
+import android.text.TextUtils
+import android.util.Patterns
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +13,7 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.example.denizgencayspacexfan.R
+import com.example.denizgencayspacexfan.data.Status
 import com.example.denizgencayspacexfan.data.models.UserCollectionModel
 import com.example.denizgencayspacexfan.ui.authentication.signin.SignInFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -38,6 +41,8 @@ class SignUpFragment : Fragment() {
                 Toast.makeText(context, "Password cannot be empty", Toast.LENGTH_SHORT).show()
             }else if(email.isEmpty()){
                 Toast.makeText(context, "Email cannot be empty", Toast.LENGTH_SHORT).show()
+            }else if(!isValidEmail(email)){
+                Toast.makeText(context, "Bad email format", Toast.LENGTH_SHORT).show()
             }else{
                 initViewModel(email,password)
             }
@@ -53,13 +58,23 @@ class SignUpFragment : Fragment() {
         return view
     }
 
+    private fun isValidEmail(email: String): Boolean {
+        return !TextUtils.isEmpty(email) && Patterns.EMAIL_ADDRESS.matcher(email).matches()
+    }
+
     private fun initViewModel(email: String, password: String) {
 
         val viewModel: SignUpViewModel = ViewModelProvider(this).get(SignUpViewModel::class.java)
         viewModel.signUpUser(email,password).observe(viewLifecycleOwner,{
-            if(it != null){
-                val userCollection = UserCollectionModel(arrayListOf())
-                viewModel.saveCollection(userCollection)
+            when(it.status){
+                Status.SUCCESS->{
+                    val userCollection = UserCollectionModel(arrayListOf())
+                    viewModel.saveCollection(userCollection)
+                    println("succ")
+                }
+                Status.ERROR->{
+                    println("err")
+                }
             }
         })
     }
