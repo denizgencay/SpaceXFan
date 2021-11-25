@@ -16,6 +16,9 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
+
+    //Using singleton design pattern with help of Hilt
+    //Creating retrofit instance
     @Singleton
     @Provides
     fun provideRetrofit(): Retrofit =
@@ -24,17 +27,20 @@ object AppModule {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
+    //Creating Api service instance
     @Singleton
     @Provides
     fun provideRocketService(retrofit: Retrofit): ApiService =
         retrofit.create(ApiService::class.java)
 
+    //Creating firebase authentication instance
     @Provides
     @Singleton
     fun provideFireBaseAuth(): FirebaseAuth {
         return FirebaseAuth.getInstance()
     }
 
+    //Creating firebase firestore instance
     @Provides
     @Singleton
     fun provideFirestore()= FirebaseFirestore.getInstance()

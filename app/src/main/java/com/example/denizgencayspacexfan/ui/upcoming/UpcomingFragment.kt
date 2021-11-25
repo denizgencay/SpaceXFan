@@ -33,6 +33,7 @@ class UpcomingFragment : Fragment() {
     }
 
     private fun initRecyclerView(){
+        // Initializing rockets recycler view for displaying the data to user
         upcomingRecyclerView.layoutManager = LinearLayoutManager(context)
         upcomingRecyclerAdapter = UpcomingRecyclerAdapter()
         upcomingRecyclerView.adapter = upcomingRecyclerAdapter
@@ -42,11 +43,12 @@ class UpcomingFragment : Fragment() {
         val viewModel: UpcomingViewModel = ViewModelProvider(this).get(UpcomingViewModel::class.java)
         viewModel.getUpcomingLiveDataObserver().observe(viewLifecycleOwner, Observer {
             if(it != null){
-                println(it[0].name)
                 upcomingRecyclerAdapter.setUpcomingListData(it)
                 upcomingRecyclerAdapter.notifyDataSetChanged()
                 upcomingRecyclerAdapter.setOnUpcomingCardClickedListener(object: UpcomingRecyclerAdapter.OnUpcomingCardListener{
                     override fun onCardButtonClicked(position: Int) {
+                        //Navigating user to upcoming detail page and sending upcoming model
+                        //To its constructor for detail information
                         println(position)
                         val currentFragment = UpcomingDetail(it[position])
                         activity?.supportFragmentManager!!.beginTransaction()

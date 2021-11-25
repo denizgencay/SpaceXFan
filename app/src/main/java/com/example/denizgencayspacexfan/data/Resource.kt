@@ -1,6 +1,7 @@
 package com.example.denizgencayspacexfan.data
 
 data class Resource<out T>(val status: Status, val data: T?, val message: String?) {
+    //For getting data result inside views
     companion object {
         fun <T> success(data: T): Resource<T> = Resource(status = Status.SUCCESS, data = data, message = null)
 

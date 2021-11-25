@@ -51,16 +51,20 @@ class RocketDetailFragment @Inject constructor(private val rocketModel: RocketMo
             imageAdapter.notifyDataSetChanged()
         }
 
+        //Setting data to view fields
         if(rocketModel.description != null) rocketDescription.text = rocketModel.description
         if(rocketModel.height != null) rocketHeight.text = "${rocketModel.height.meters}m/${rocketModel.height.feet}ft"
         if(rocketModel.diameter != null) rocketDiameter.text = "${rocketModel.diameter.meters}m/${rocketModel.diameter.feet}ft"
         if(rocketModel.mass != null) rocketMass.text = "${rocketModel.mass.kg}kg/${rocketModel.mass.lb}lb"
 
-
+        //Setting image to image view with the help of picasso library
         if(rocketModel.flickrImages.isNotEmpty()){
             Picasso.get().load(rocketModel.flickrImages[0]).into(imageView)
         }
 
+        //Setting like icon status, there are two icons with filled and empty
+        //If the rocket is liked empty icon is invisible and filled one is visible
+        //If the rocket is not liked filled icon is invisible and empty one is visible
         if (rocketModel.isLiked){
             likeButton.isVisible = false
             dislikeButton.isVisible = true
@@ -70,19 +74,20 @@ class RocketDetailFragment @Inject constructor(private val rocketModel: RocketMo
         }
 
 
-
+        //Setting rockets like status to true
         likeButton.setOnClickListener {
             if (!rocketModel.isLiked){
-                rocketModel.setLikeStatus(true)
+                rocketModel.isLiked = true
                 likeButton.isVisible = false
                 dislikeButton.isVisible = true
                 viewModel.appendLike(rocketModel.id)
             }
         }
 
+        //Setting rockets like status to false
         dislikeButton.setOnClickListener {
             if (rocketModel.isLiked){
-                rocketModel.setLikeStatus(false)
+                rocketModel.isLiked = false
                 dislikeButton.isVisible = false
                 likeButton.isVisible = true
                 viewModel.removeLike(rocketModel.id)

@@ -33,6 +33,7 @@ class UpcomingDetail @Inject constructor(private val upcomingLaunchModel: Upcomi
         val dateText: TextView = view.findViewById(R.id.upcoming_detail_fragment_date_text)
         val flightNumberText: TextView = view.findViewById(R.id.upcoming_detail_fragment_flight_number_text)
 
+        //Setting upcoming data to to view
         if (upcomingLaunchModel.links.patch.large != null){
             Picasso.get().load(upcomingLaunchModel.links.patch.large).into(upcomingImage)
         }
@@ -49,7 +50,6 @@ class UpcomingDetail @Inject constructor(private val upcomingLaunchModel: Upcomi
             flightNumberText.text = upcomingLaunchModel.flightNumber.toString()
         }
 
-
         backButton.setOnClickListener {
             val currentFragment = UpcomingFragment()
             activity?.supportFragmentManager!!.beginTransaction()
@@ -58,6 +58,7 @@ class UpcomingDetail @Inject constructor(private val upcomingLaunchModel: Upcomi
         }
         return view
     }
+    //Date formatting
     @Throws(ParseException::class)
     private fun modifyDateLayout(inputDate: String): String? {
         val date: Date = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.sssssss").parse(inputDate)

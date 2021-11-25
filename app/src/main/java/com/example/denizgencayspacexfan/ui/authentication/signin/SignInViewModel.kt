@@ -26,14 +26,6 @@ class SignInViewModel @Inject constructor(
                 firebaseRepository.fetchUser().addOnCompleteListener { userTask ->
                     if (userTask.isSuccessful) {
                         println("suc")
-//                        userTask.result?.documents?.forEach {
-//                            if (it.data!!["email"] == email) {
-//                                println("dadada")
-//                                val userId = it.data?.getValue("userId")
-//                                userData.postValue(
-//                                    Resource.success(UserModel(
-//                                            firebaseAuth.currentUser?.email!!, userId.toString()))
-//                                ) } }
                             userData.postValue(
                                 Resource.success(UserModel(
                                         firebaseAuth.currentUser?.email!!, firebaseAuth.currentUser?.uid!!))

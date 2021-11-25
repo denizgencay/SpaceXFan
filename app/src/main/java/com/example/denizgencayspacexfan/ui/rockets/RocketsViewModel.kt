@@ -24,26 +24,27 @@ class RocketsViewModel @Inject constructor(
 
     private var rocketsDataList: MutableLiveData<List<RocketModel>> = MutableLiveData()
 
+    //Listening the rocket model list
     fun getRocketLiveDataObserver(): MutableLiveData<List<RocketModel>> {
         return rocketsDataList
     }
-
+    //Loading the data to view that comes from rocket repository
     fun loadRocketListOfData(){
         rocketRepository.getAllRocketsFromApi(rocketsDataList)
     }
-
+    //Adding liked rockets id to firebase
     fun appendLike(rocketId: String){
         firebaseRepository.appendLike(firebaseAuth.currentUser!!.uid, rocketId).addOnCompleteListener {
             println("suc")
         }
     }
-
+    //Removing liked rockets id from firebase
     fun removeLike(rocketId: String){
         firebaseRepository.removeLike(firebaseAuth.currentUser!!.uid, rocketId).addOnCompleteListener {
             println("suc")
         }
     }
-
+    //Getting list of liked rockets ids from firebase
     fun getLikeStatus(): Task<DocumentSnapshot> {
         return firebaseRepository.getLikeStatus(firebaseAuth.currentUser!!.uid)
     }

@@ -32,7 +32,7 @@ class SignUpFragment : Fragment() {
         val passwordText: EditText = view.findViewById(R.id.fragment_sign_up_password_text)
         val signUpButton: Button = view.findViewById(R.id.sign_up_button)
         val backButton: ImageView = view.findViewById(R.id.fragment_sign_up_back_button)
-
+        //Validation for suitable sign up form
         signUpButton.setOnClickListener {
             val email: String = emailText.text.toString()
             val password: String = passwordText.text.toString()

@@ -21,11 +21,7 @@ data class RocketModel (
     @SerializedName("description") var description : String,
     @SerializedName("id") var id : String,
     var isLiked: Boolean = false
-){
-    fun setLikeStatus(isLiked:Boolean){
-        this.isLiked = isLiked
-    }
-}
+)
 
 data class RocketId(
     var rocketId: String

@@ -37,9 +37,8 @@ class FavoritesFragment : Fragment() {
     ): View? {
         val view: View = inflater.inflate(R.layout.fragment_favorites, container, false)
         val signOut: ImageView = view.findViewById(R.id.fragment_log_out_button)
-
+        //Alerting the user that the user is trying to log out
         signOut.setOnClickListener {
-            println("hello")
             val alertDialog = AlertDialog.Builder(context)
             alertDialog.setTitle("Are you sure you want to log out?")
                     .setCancelable(false)
@@ -65,47 +64,72 @@ class FavoritesFragment : Fragment() {
     }
 
     private fun initRecyclerView() {
+        // Initializing rockets recycler view for displaying the data to user
         favoritesRecyclerView.layoutManager = LinearLayoutManager(context)
         favoritesRecyclerViewAdapter = RocketsRecyclerAdapter()
         favoritesRecyclerView.adapter = favoritesRecyclerViewAdapter
     }
 
     private fun initViewModel() {
+        //Data and view binding using hilt view model
         val viewModel: RocketsViewModel = ViewModelProvider(this).get(RocketsViewModel::class.java)
         viewModel.getRocketLiveDataObserver().observe(viewLifecycleOwner, {
             if (it != null) {
                 viewModel.getLikeStatus().addOnSuccessListener { ls ->
+                    //Creating an array list for users liked rockets
+                    //The liked rocket data stored in firebase
+                    //We collect the data under users document and under that the rocketIds collection
                     val list: ArrayList<String> = ls.data?.get("rocketIds") as ArrayList<String>
-                    var likedRockets:  ArrayList<RocketModel> = arrayListOf()
+                    val likedRockets: ArrayList<RocketModel> = arrayListOf()
                     for (rocket in it) {
                         if (list.contains(rocket.id)) {
                             rocket.isLiked = true
                             likedRockets.add(rocket)
                         }
                     }
-                    println(list.size)
                     favoritesRecyclerViewAdapter.setRocketListData(likedRockets)
                     favoritesRecyclerViewAdapter.notifyDataSetChanged()
-                    favoritesRecyclerViewAdapter.setOnCardClickedListener(object : RocketsRecyclerAdapter.OnCardListener {
+                    favoritesRecyclerViewAdapter.setOnCardClickedListener(object :
+                        RocketsRecyclerAdapter.OnCardListener {
                         override fun onCardClicked(position: Int) {
-                            val currentFragment = RocketDetailFragment(it[position],true)
+                            println(position)
+                            val currentFragment = RocketDetailFragment(it[position], true)
                             activity?.supportFragmentManager!!.beginTransaction()
-                                    .replace(R.id.fragment_container, currentFragment, "fragmentId")
-                                    .commit();
+                                .replace(R.id.fragment_container, currentFragment, "fragmentId")
+                                .commit();
                         }
 
                         override fun onLikeClicked(position: Int) {
                             //Like button cannot clicked here because it's always invisible on this fragment.
                             //Calling this method is a must because this view uses the rockets adapter
-                            //And it has a interface for like rockets
+                            //And it has a interface for liked rockets
                         }
 
                         override fun onDislikeClicked(position: Int) {
-                            if (it[position].isLiked) {
-                                it[position].isLiked = false
-                                favoritesRecyclerViewAdapter.notifyItemRemoved(position)
-                                likedRockets.remove(it[position])
-                                viewModel.removeLike(it[position].id)
+                            //Removing liked rockets
+                            println(position)
+                            println(it[position].name)
+                            println(it[position].isLiked)
+                            //Liked rockets and it(List of rocket models) has different size of data
+                            //The data has to removed from the correct item from liked rockets array for updating view
+                            //And also has to removed from it(List of rocket model)  for updating the database
+                            //Correcting indexes for both array lists
+                            var index = 0
+                            for(rocket in it){
+                                if (rocket.id == likedRockets[position].id){
+                                    index = it.indexOf(rocket)
+                                    break
+                                }
+                            }
+                            println(index)
+                            println(it[index].name)
+                            println(it[index].isLiked)
+                            if (it[index].isLiked) {
+                                it[index].isLiked = false
+                                println("clicked")
+                                favoritesRecyclerViewAdapter.notifyItemRemoved(index)
+                                likedRockets.remove(it[index])
+                                viewModel.removeLike(it[index].id)
                             }
                         }
 

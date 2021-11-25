@@ -129,82 +129,82 @@
 
        </RelativeLayout>
 
-       <RelativeLayout
-           android:id="@+id/payload_to_leo_layout"
-           android:layout_below="@id/mass_layout"
-           android:layout_marginHorizontal="15dp"
-           android:layout_marginBottom="10dp"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content">
+<!--       <RelativeLayout-->
+<!--           android:id="@+id/payload_to_leo_layout"-->
+<!--           android:layout_below="@id/mass_layout"-->
+<!--           android:layout_marginHorizontal="15dp"-->
+<!--           android:layout_marginBottom="10dp"-->
+<!--           android:layout_width="match_parent"-->
+<!--           android:layout_height="wrap_content">-->
 
-           <TextView
-               android:id="@+id/rocket_detail_fragment_payload_to_leo"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:textColor="@color/white"
-               android:textStyle="bold"
-               android:text="@string/payload_to_leo"/>
-           <TextView
-               android:id="@+id/rocket_detail_fragment_payload_to_leo_text"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:textColor="@color/white"
-               android:layout_alignParentEnd="true"
-               />
+<!--           <TextView-->
+<!--               android:id="@+id/rocket_detail_fragment_payload_to_leo"-->
+<!--               android:layout_width="wrap_content"-->
+<!--               android:layout_height="wrap_content"-->
+<!--               android:textColor="@color/white"-->
+<!--               android:textStyle="bold"-->
+<!--               android:text="@string/payload_to_leo"/>-->
+<!--           <TextView-->
+<!--               android:id="@+id/rocket_detail_fragment_payload_to_leo_text"-->
+<!--               android:layout_width="wrap_content"-->
+<!--               android:layout_height="wrap_content"-->
+<!--               android:textColor="@color/white"-->
+<!--               android:layout_alignParentEnd="true"-->
+<!--               />-->
 
-       </RelativeLayout>
+<!--       </RelativeLayout>-->
 
-       <RelativeLayout
-           android:id="@+id/payload_to_gto_layout"
-           android:layout_below="@id/payload_to_leo_layout"
-           android:layout_marginHorizontal="15dp"
-           android:layout_marginBottom="10dp"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content">
+<!--       <RelativeLayout-->
+<!--           android:id="@+id/payload_to_gto_layout"-->
+<!--           android:layout_below="@id/payload_to_leo_layout"-->
+<!--           android:layout_marginHorizontal="15dp"-->
+<!--           android:layout_marginBottom="10dp"-->
+<!--           android:layout_width="match_parent"-->
+<!--           android:layout_height="wrap_content">-->
 
-           <TextView
-               android:id="@+id/rocket_detail_fragment_payload_to_gto"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:textColor="@color/white"
-               android:textStyle="bold"
-               android:text="@string/payload_to_gto"/>
-           <TextView
-               android:id="@+id/rocket_detail_fragment_payload_to_gto_text"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:textColor="@color/white"
-               android:layout_alignParentEnd="true"
-               />
+<!--           <TextView-->
+<!--               android:id="@+id/rocket_detail_fragment_payload_to_gto"-->
+<!--               android:layout_width="wrap_content"-->
+<!--               android:layout_height="wrap_content"-->
+<!--               android:textColor="@color/white"-->
+<!--               android:textStyle="bold"-->
+<!--               android:text="@string/payload_to_gto"/>-->
+<!--           <TextView-->
+<!--               android:id="@+id/rocket_detail_fragment_payload_to_gto_text"-->
+<!--               android:layout_width="wrap_content"-->
+<!--               android:layout_height="wrap_content"-->
+<!--               android:textColor="@color/white"-->
+<!--               android:layout_alignParentEnd="true"-->
+<!--               />-->
 
-       </RelativeLayout>
+<!--       </RelativeLayout>-->
 
-       <RelativeLayout
-           android:id="@+id/payload_to_mars_layout"
-           android:layout_below="@id/payload_to_gto_layout"
-           android:layout_marginHorizontal="15dp"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content">
+<!--       <RelativeLayout-->
+<!--           android:id="@+id/payload_to_mars_layout"-->
+<!--           android:layout_below="@id/payload_to_gto_layout"-->
+<!--           android:layout_marginHorizontal="15dp"-->
+<!--           android:layout_width="match_parent"-->
+<!--           android:layout_height="wrap_content">-->
 
-           <TextView
-               android:id="@+id/rocket_detail_fragment_payload_to_mars"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:textColor="@color/white"
-               android:textStyle="bold"
-               android:text="@string/payload_to_mars"/>
-           <TextView
-               android:id="@+id/rocket_detail_fragment_payload_to_mars_text"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:textColor="@color/white"
-               android:layout_alignParentEnd="true"
-               />
+<!--           <TextView-->
+<!--               android:id="@+id/rocket_detail_fragment_payload_to_mars"-->
+<!--               android:layout_width="wrap_content"-->
+<!--               android:layout_height="wrap_content"-->
+<!--               android:textColor="@color/white"-->
+<!--               android:textStyle="bold"-->
+<!--               android:text="@string/payload_to_mars"/>-->
+<!--           <TextView-->
+<!--               android:id="@+id/rocket_detail_fragment_payload_to_mars_text"-->
+<!--               android:layout_width="wrap_content"-->
+<!--               android:layout_height="wrap_content"-->
+<!--               android:textColor="@color/white"-->
+<!--               android:layout_alignParentEnd="true"-->
+<!--               />-->
 
-       </RelativeLayout>
+<!--       </RelativeLayout>-->
        <androidx.recyclerview.widget.RecyclerView
            android:id="@+id/image_recycler_view"
-           android:layout_below="@id/payload_to_mars_layout"
+           android:layout_below="@id/mass_layout"
            android:layout_width="match_parent"
            android:layout_height="wrap_content"/>
    </RelativeLayout>

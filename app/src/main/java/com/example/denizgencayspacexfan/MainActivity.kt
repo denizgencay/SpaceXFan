@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
             true
         })
     }
-
+    //Setting bottom navigation bar selections 
     private fun commitFragment(fragment: Fragment){
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.fragment_container,fragment)

@@ -17,12 +17,13 @@ class RocketsRecyclerAdapter : RecyclerView.Adapter<RocketsRecyclerAdapter.Rocke
     private var rocketListData: List<RocketModel>? = null
     private var listener: OnCardListener? = null
 
+    //Creating an interface for handling clicks inside the fragment
     interface OnCardListener{
         fun onCardClicked(position: Int)
         fun onLikeClicked(position: Int)
         fun onDislikeClicked(position: Int)
     }
-
+    //Setting data to adapter that comes from fragment
     fun setRocketListData(rocketListData: List<RocketModel>?){
         this.rocketListData = rocketListData
     }
@@ -30,12 +31,12 @@ class RocketsRecyclerAdapter : RecyclerView.Adapter<RocketsRecyclerAdapter.Rocke
     fun setOnCardClickedListener(listener: OnCardListener){
         this.listener = listener
     }
-
+    //Binding adapter to its card
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RocketsViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.rocket_card,parent,false)
         return RocketsViewHolder(itemView ,listener!!)
     }
-
+    //Binding data to card view
     override fun onBindViewHolder(holder: RocketsViewHolder, position: Int) {
         holder.bind(rocketListData?.get(position)!!)
     }
@@ -51,6 +52,7 @@ class RocketsRecyclerAdapter : RecyclerView.Adapter<RocketsRecyclerAdapter.Rocke
         private val dislikeButton: ImageView = itemView.rocket_card_dislike_button
         private val rocketCardImage: ImageView = itemView.rocket_card_rocket_image
 
+        //Binding interface methods to click methods
         init {
             itemView.setOnClickListener {
                 listener.onCardClicked(adapterPosition)
@@ -65,6 +67,7 @@ class RocketsRecyclerAdapter : RecyclerView.Adapter<RocketsRecyclerAdapter.Rocke
 
         }
 
+        //Binding data to cards view
         fun bind(data: RocketModel){
             rocketName.text = data.name
             if (data.flickrImages.isNotEmpty()){

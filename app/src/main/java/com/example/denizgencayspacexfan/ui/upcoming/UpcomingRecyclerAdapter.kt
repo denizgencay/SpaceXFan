@@ -13,14 +13,13 @@ class UpcomingRecyclerAdapter: RecyclerView.Adapter<UpcomingRecyclerAdapter.Upco
     private var upcomingListData: List<UpcomingLaunchModel>? = null
     private lateinit var listener: OnUpcomingCardListener
 
+    //Creating the interface for handling clicks inside fragment
     interface OnUpcomingCardListener{
         fun onCardButtonClicked(position: Int)
     }
 
     fun setOnUpcomingCardClickedListener(listener: OnUpcomingCardListener){
-
         this.listener = listener
-
     }
 
     fun setUpcomingListData(upcomingListData: List<UpcomingLaunchModel>?){
@@ -29,10 +28,10 @@ class UpcomingRecyclerAdapter: RecyclerView.Adapter<UpcomingRecyclerAdapter.Upco
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UpcomingViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.upcoming_launch_card,parent,false)
-
         return UpcomingViewHolder(itemView ,listener)
     }
 
+    //Binding data to view
     override fun onBindViewHolder(holder: UpcomingViewHolder, position: Int) {
         holder.bind(upcomingListData?.get(position)!!)
     }
@@ -47,11 +46,12 @@ class UpcomingRecyclerAdapter: RecyclerView.Adapter<UpcomingRecyclerAdapter.Upco
         private val exploreButton = itemView.upcoming_launches_button
 
         init {
+            //Binding interface to click actions
             exploreButton.setOnClickListener {
                 listener.onCardButtonClicked(adapterPosition)
             }
         }
-
+        //Binding data to view
         fun bind(data: UpcomingLaunchModel){
             upcomingLaunchName.text = data.name
         }
