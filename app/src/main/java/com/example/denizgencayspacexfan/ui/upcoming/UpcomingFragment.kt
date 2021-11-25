@@ -46,12 +46,12 @@ class UpcomingFragment : Fragment() {
                 upcomingRecyclerAdapter.setUpcomingListData(it)
                 upcomingRecyclerAdapter.notifyDataSetChanged()
                 upcomingRecyclerAdapter.setOnUpcomingCardClickedListener(object: UpcomingRecyclerAdapter.OnUpcomingCardListener{
-                    override fun onUpcomingCardClicked(position: Int) {
+                    override fun onCardButtonClicked(position: Int) {
                         println(position)
                         val currentFragment = UpcomingDetail(it[position])
                         activity?.supportFragmentManager!!.beginTransaction()
                                 .replace(R.id.fragment_container, currentFragment, "fragmentId")
-                                .commit();
+                                .commit()
                     }
                 })
             }else{

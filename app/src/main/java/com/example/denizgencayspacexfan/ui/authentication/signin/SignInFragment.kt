@@ -44,7 +44,7 @@ class SignInFragment : Fragment() {
         val passwordText: EditText = view.findViewById(R.id.fragment_sign_in_password_text)
         val loginButton: Button = view.findViewById(R.id.sign_in_button)
         val signUpButton: TextView = view.findViewById(R.id.sign_in_fragment_sign_up_button)
-        if(firebaseAuth.currentUser == null){
+        if(firebaseAuth.currentUser != null){
             val currentFragment = FavoritesFragment()
             activity?.supportFragmentManager!!.beginTransaction()
                 .replace(R.id.fragment_container, currentFragment, "fragmentId")
@@ -83,11 +83,16 @@ class SignInFragment : Fragment() {
             when(it.status){
 
                 Status.LOADING -> {
-                    println("asd")
+                    println("loading")
                 }
 
                 Status.SUCCESS ->{
-                    println("succ")
+                    activity?.runOnUiThread {
+                        val currentFragment = FavoritesFragment()
+                        activity?.supportFragmentManager!!.beginTransaction()
+                                .replace(R.id.fragment_container, currentFragment, "fragmentId")
+                                .commit()
+                    }
                 }
                 Status.ERROR ->{
                     println("no")

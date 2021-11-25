@@ -1,10 +1,13 @@
 package com.example.denizgencayspacexfan.ui.favorites
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,20 +20,44 @@ import com.example.denizgencayspacexfan.ui.authentication.signup.SignUpFragment
 import com.example.denizgencayspacexfan.ui.rockets.RocketsRecyclerAdapter
 import com.example.denizgencayspacexfan.ui.rockets.RocketsViewModel
 import com.example.denizgencayspacexfan.ui.rockets.detail.RocketDetailFragment
+import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class FavoritesFragment : Fragment() {
 
     lateinit var favoritesRecyclerViewAdapter: RocketsRecyclerAdapter
     lateinit var favoritesRecyclerView: RecyclerView
+    @Inject
+    lateinit var firebaseAuth: FirebaseAuth
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view: View = inflater.inflate(R.layout.fragment_favorites, container, false)
+        val signOut: ImageView = view.findViewById(R.id.fragment_log_out_button)
 
+        signOut.setOnClickListener {
+            println("hello")
+            val alertDialog = AlertDialog.Builder(context)
+            alertDialog.setTitle("Are you sure you want to log out?")
+                    .setCancelable(false)
+                    .setPositiveButton("LOG OUT"){ dialog, _ ->
+                        firebaseAuth.signOut()
+                        val currentFragment = SignInFragment()
+                        activity?.supportFragmentManager!!.beginTransaction()
+                                .replace(R.id.fragment_container, currentFragment, "fragmentId")
+                                .commit();
+                        dialog.dismiss()
+                    }
+                    .setNegativeButton("CANCEL"){dialog, _ ->
+                        dialog.dismiss()
+                    }
+                    .show()
+
+        }
         favoritesRecyclerView = view.findViewById(R.id.favorites_recycler_view)
         initRecyclerView()
         initViewModel()
@@ -69,6 +96,10 @@ class FavoritesFragment : Fragment() {
                         }
 
                         override fun onLikeClicked(position: Int) {
+                            //
+                        }
+
+                        override fun onDislikeClicked(position: Int) {
                             if (it[position].isLiked) {
                                 it[position].isLiked = false
                                 favoritesRecyclerViewAdapter.notifyItemRemoved(position)
@@ -76,6 +107,7 @@ class FavoritesFragment : Fragment() {
                                 viewModel.removeLike(it[position].id)
                             }
                         }
+
                     })
                 }
             } else {

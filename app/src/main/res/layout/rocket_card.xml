@@ -33,11 +33,20 @@
                 android:text="Falcon 9"/>
 
             <ImageView
-                android:id="@+id/rocket_card_favorite_button"
+                android:id="@+id/rocket_card_like_button"
+                android:visibility="invisible"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_alignParentEnd="true"
-                android:src="@mipmap/ic_launcher"/>
+                android:src="@drawable/ic_baseline_star_border_24"/>
+
+            <ImageView
+                android:id="@+id/rocket_card_dislike_button"
+                android:visibility="invisible"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentEnd="true"
+                android:src="@drawable/ic_baseline_star_24"/>
 
         </RelativeLayout>
 

@@ -14,7 +14,7 @@ class UpcomingRecyclerAdapter: RecyclerView.Adapter<UpcomingRecyclerAdapter.Upco
     private lateinit var listener: OnUpcomingCardListener
 
     interface OnUpcomingCardListener{
-        fun onUpcomingCardClicked(position: Int)
+        fun onCardButtonClicked(position: Int)
     }
 
     fun setOnUpcomingCardClickedListener(listener: OnUpcomingCardListener){
@@ -44,10 +44,11 @@ class UpcomingRecyclerAdapter: RecyclerView.Adapter<UpcomingRecyclerAdapter.Upco
 
     class UpcomingViewHolder(itemView: View,listener: OnUpcomingCardListener): RecyclerView.ViewHolder(itemView){
         private val upcomingLaunchName = itemView.upcoming_launches_name_text
+        private val exploreButton = itemView.upcoming_launches_button
 
         init {
-            itemView.setOnClickListener {
-                listener.onUpcomingCardClicked(adapterPosition)
+            exploreButton.setOnClickListener {
+                listener.onCardButtonClicked(adapterPosition)
             }
         }
 

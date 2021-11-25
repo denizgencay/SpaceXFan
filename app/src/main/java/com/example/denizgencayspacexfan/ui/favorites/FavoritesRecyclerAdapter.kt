@@ -45,7 +45,7 @@ class FavoritesRecyclerAdapter : RecyclerView.Adapter<FavoritesRecyclerAdapter.F
 
     class FavoritesViewHolder(itemView: View, listener: OnCardListener): RecyclerView.ViewHolder(itemView){
         private val rocketName = itemView.rocket_card_rocket_name
-        private val likeButton = itemView.rocket_card_favorite_button
+        private val likeButton = itemView.rocket_card_like_button
 
         init {
             itemView.setOnClickListener {

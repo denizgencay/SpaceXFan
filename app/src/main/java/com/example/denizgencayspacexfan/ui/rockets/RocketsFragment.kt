@@ -65,15 +65,23 @@ class RocketsFragment : Fragment() {
                                         .replace(R.id.fragment_container, currentFragment, "fragmentId")
                                         .commit();
                             }
+
                             override fun onLikeClicked(position: Int) {
+                                println("like")
+                                if (!it[position].isLiked) {
+                                    it[position].setLikeStatus(true)
+                                    rocketsRecyclerViewAdapter.notifyItemChanged(position)
+                                    viewModel.appendLike(it[position].id)
+                                    println("hello")
+                                }
+                            }
+
+                            override fun onDislikeClicked(position: Int) {
+                                println("dislike")
                                 if (it[position].isLiked) {
                                     it[position].setLikeStatus(false)
                                     rocketsRecyclerViewAdapter.notifyItemChanged(position)
                                     viewModel.removeLike(it[position].id)
-                                } else {
-                                    it[position].setLikeStatus(true)
-                                    rocketsRecyclerViewAdapter.notifyItemChanged(position)
-                                    viewModel.appendLike(it[position].id)
                                 }
                             }
                         })
@@ -85,7 +93,12 @@ class RocketsFragment : Fragment() {
                         override fun onCardClicked(position: Int) {
                             println("asd")
                         }
+
                         override fun onLikeClicked(position: Int) {
+                            println("asd")
+                        }
+
+                        override fun onDislikeClicked(position: Int) {
                             println("asd")
                         }
                     })

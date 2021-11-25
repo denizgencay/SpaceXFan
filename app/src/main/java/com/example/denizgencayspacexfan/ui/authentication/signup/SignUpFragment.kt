@@ -16,6 +16,7 @@ import com.example.denizgencayspacexfan.R
 import com.example.denizgencayspacexfan.data.Status
 import com.example.denizgencayspacexfan.data.models.UserCollectionModel
 import com.example.denizgencayspacexfan.ui.authentication.signin.SignInFragment
+import com.example.denizgencayspacexfan.ui.favorites.FavoritesFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -67,11 +68,21 @@ class SignUpFragment : Fragment() {
         val viewModel: SignUpViewModel = ViewModelProvider(this).get(SignUpViewModel::class.java)
         viewModel.signUpUser(email,password).observe(viewLifecycleOwner,{
             when(it.status){
+
+                Status.LOADING -> {
+                    println("loading")
+                }
                 Status.SUCCESS->{
                     val userCollection = UserCollectionModel(arrayListOf())
                     viewModel.saveCollection(userCollection)
-                    println("succ")
+                    activity?.runOnUiThread {
+                        val currentFragment = FavoritesFragment()
+                        activity?.supportFragmentManager!!.beginTransaction()
+                                .replace(R.id.fragment_container, currentFragment, "fragmentId")
+                                .commit()
+                    }
                 }
+
                 Status.ERROR->{
                     println("err")
                 }
