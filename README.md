@@ -118,8 +118,52 @@ Progresses and details about project will be documented.
 
 # Project Overview
 
-Will be completed.
+An Android application that provides information about SpaceX rockets and launches using the SpaceX API and allows users to select and save favorite rockets using an account is developed using Kotlin.
+
+## Flow
+
+The Rockets fragment is loaded when the application is started. On this page, there are cards with brief information about all rockets, including the status of like. If there is a user already logged in, likes can be added or removed, otherwise, user is not are allowed to use the like feature of the app. When these cards are clicked, the detail page of that card opens. On the detail page, related information is shown, including the status of like if the user is logged-in.
+When the second tab, the favorites, is clicked, if the user is authenticated, the favorite rockets of that user are listed. User can remove the likes and enter the details of these rockets or log out. If there is no authecticated user, the login page opens. In this view user can log-in if there is a account created before and can become a member by using sing-up feature if there is not.
+The third tab, Upcoming Launches, lists all future launches. When the explore button on the cards is clicked, the launch detail page opens.
+
+## Remote Resource Service Implementation
+
+SpaceX API and Firebase is used to reach the remote resources.
+
+### SpaceX API
+
+Retrofit library is used to make HTTP request to the API. 
+
+- `/rockets` endpoint is used to get the information of rockets.
+- `/launches/upcoming` endpoint is used to get the information of upcoming launches.
+
+### Firebase Authentication and Firestore
+
+Firebase library is used to make requests to Firebase. 
+
+- Firebase authentication is implemented
+- Firestore storage is implemented.
+- When a user signs in, Favorites tab and like buttons of the rocket cards will be available to user.
+
+## MVVM Implementation
+
+Necessary views constructed for rockets, favorites and launches.
+
+The Rocket view model is called when the Rockets fragment is created. This view allows us to retrieve the data of all rockets via SpaceX API using the Retrofit library from the rockets repository.
+
+Since Rockets and Favorites both use the rocket information, the Rocket View Model is used for both of those fragments. This fragments are also responsible for checking if user is available or not.
+
+Upcoming launches fragment has its own view and view model.
+
+## Libraries
+
+1. hilt: Dependincy Injection
+2. circleimageview: For rounded images
+3. picasso: For loading images from api to imageview
+4. crashlytics: For detecting crashes on app
+5. retrofit: For Http requests
+6. firestore: For authentication and storing data of users
 
 # Summary
 
-Will be completed.
+Project is built using Kotlin on Anroid Studio IDE.
