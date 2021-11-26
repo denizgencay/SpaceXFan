@@ -80,14 +80,14 @@ class SignInFragment : Fragment() {
     private fun initViewModel(email: String, password: String) {
 
         val viewModel: SignInViewModel = ViewModelProvider(this).get(SignInViewModel::class.java)
-        viewModel.signInUser(email,password).observe(viewLifecycleOwner,{
-            when(it.status){
+        viewModel.signInUser(email,password).observe(viewLifecycleOwner, {
+            when (it.status) {
 
                 Status.LOADING -> {
                     println("loading")
                 }
 
-                Status.SUCCESS ->{
+                Status.SUCCESS -> {
                     activity?.runOnUiThread {
                         val currentFragment = FavoritesFragment()
                         activity?.supportFragmentManager!!.beginTransaction()
@@ -95,8 +95,10 @@ class SignInFragment : Fragment() {
                                 .commit()
                     }
                 }
-                Status.ERROR ->{
-                    println("Error")
+                Status.ERROR -> {
+                   activity?.runOnUiThread {
+                       Toast.makeText(context, "Email or password invalid", Toast.LENGTH_SHORT).show()
+                   }
                 }
             }
 
