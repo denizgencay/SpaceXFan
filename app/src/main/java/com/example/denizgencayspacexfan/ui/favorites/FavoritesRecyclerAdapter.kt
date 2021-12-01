@@ -23,7 +23,6 @@ class FavoritesRecyclerAdapter : RecyclerView.Adapter<FavoritesRecyclerAdapter.F
     }
 
     fun setOnCardClickedListener(listener: OnCardListener){
-
         this.listener = listener
 
     }

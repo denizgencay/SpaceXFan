@@ -57,7 +57,7 @@ class SignInFragment : Fragment() {
             val email: String = emailText.text.toString()
             val password: String = passwordText.text.toString()
             if (email.isEmpty() && password.isEmpty()){
-                Toast.makeText(context, "Please fill enter your credentials", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Please enter your credentials", Toast.LENGTH_SHORT).show()
             }else if (password.isEmpty()){
                 Toast.makeText(context, "Password cannot be empty", Toast.LENGTH_SHORT).show()
             }else if(email.isEmpty()){
