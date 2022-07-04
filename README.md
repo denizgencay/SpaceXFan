@@ -1,7 +1,5 @@
 # SpaceX Fan Application
 
-NUCLEO AR&GE Coding Assignment for the part-time Android Developer position
-
 # Project Requirements
 
 Create an android application that;
